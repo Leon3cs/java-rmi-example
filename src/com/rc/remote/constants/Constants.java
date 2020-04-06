@@ -27,7 +27,7 @@ public abstract class Constants {
 	};
 
 	public static final String ASK_USER_INPUT_QUESTION_1 = "Input your message and the application will perfom a remote method invocation to the server to process it:";
-	public static final String ASK_USER_INPUT_QUESTION_2_INTRO = "Logic operation with two values, input two arguments and a operatin type to retrieve from server the result by remote method invocation:";
+	public static final String ASK_USER_INPUT_QUESTION_2_INTRO = "Logic operation with two values, input two arguments and a operation type to retrieve from server the result by remote method invocation:";
 	public static final String ASK_USER_INPUT_QUESTION_2_INPUT_1 = "arg1: ";
 	public static final String ASK_USER_INPUT_QUESTION_2_INPUT_2 = "arg2: ";
 	public static final String ASK_USER_INPUT_QUESTION_2_OPERATION = "Operation (equal, lessThan, greaterThan): ";
