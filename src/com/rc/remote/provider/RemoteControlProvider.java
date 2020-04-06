@@ -15,34 +15,35 @@ public class RemoteControlProvider extends UnicastRemoteObject implements IRemot
 
 	@Override
 	public void sendMessage(String message) throws RemoteException {
-		if(message.isEmpty()) {
+		if (message.isEmpty()) {
 			System.out.println("Invalid message");
-		}else {
+		} else {
 			StringBuilder builder = new StringBuilder("Message received successfully\n");
 			builder.append("Message: ");
 			builder.append(message);
-			
+
 			System.out.println(builder.toString());
 		}
 	}
 
 	@Override
 	public boolean makeLogicOperation(int arg1, String operation, int arg2) {
-		if(operation.isEmpty()) throw new IllegalArgumentException("Operation cannot be empty.");
-		
+		if (operation.isEmpty())
+			throw new IllegalArgumentException("Operation cannot be empty.");
+
 		boolean result;
-		
-		if(operation.contains(Constants.OPERATION_EQUAL)) {
+
+		if (operation.contains(Constants.OPERATION_EQUAL)) {
 			result = arg1 == arg2;
-		}else if(operation.contains(Constants.OPERATION_GREATER_THAN)) {
+		} else if (operation.contains(Constants.OPERATION_GREATER_THAN)) {
 			result = arg1 > arg2;
-		}else if(operation.contains(Constants.OPERATION_LESS_THAN)) {
+		} else if (operation.contains(Constants.OPERATION_LESS_THAN)) {
 			result = arg1 < arg2;
-		}else {
+		} else {
 			throw new IllegalArgumentException("Invalid operation");
 		}
-		
+
 		return result;
 	}
-	
+
 }

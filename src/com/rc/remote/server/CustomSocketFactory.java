@@ -15,9 +15,7 @@ public class CustomSocketFactory extends RMISocketFactory {
 
 	@Override
 	public Socket createSocket(String host, int port) throws IOException {
-		return RMISocketFactory
-				.getDefaultSocketFactory()
-				.createSocket(host, port);
+		return RMISocketFactory.getDefaultSocketFactory().createSocket(host, port);
 	}
 
 }

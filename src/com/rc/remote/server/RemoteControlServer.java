@@ -13,12 +13,12 @@ public class RemoteControlServer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public static void main(String[] args) {
 		try {
-			if(connect())
+			if (connect())
 				ready();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -26,33 +26,22 @@ public class RemoteControlServer {
 	public static long getSerialVersionUid() {
 		return serialVersionUID;
 	}
-	
+
 	public static void ready() throws Exception {
-		System.out.println(
-			Constants
-			.createServerConnectionSuccessfulMessage(
-					InetAddress
-					.getLocalHost()
-					.getHostName(),
-					Registry.REGISTRY_PORT
-			)
-		);
+		System.out.println(Constants.createServerConnectionSuccessfulMessage(InetAddress.getLocalHost().getHostName(),
+				Registry.REGISTRY_PORT));
 	}
-	
+
 	public static boolean connect() throws Exception {
 		RMISocketFactory.setSocketFactory(new CustomSocketFactory());
-		
+
 		RemoteControlProvider provider = new RemoteControlProvider();
-		
-		Registry registry = LocateRegistry.createRegistry(
-				Registry.REGISTRY_PORT, 
-				RMISocketFactory
-				.getDefaultSocketFactory(), 
-				RMISocketFactory
-				.getDefaultSocketFactory());
-		
+
+		Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT,
+				RMISocketFactory.getDefaultSocketFactory(), RMISocketFactory.getDefaultSocketFactory());
+
 		registry.rebind(Constants.REMOTE_OBJECT_NAME, provider);
-		
+
 		return true;
 	}
 
