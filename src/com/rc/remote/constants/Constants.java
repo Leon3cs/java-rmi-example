@@ -1,8 +1,10 @@
 package com.rc.remote.constants;
 
 public abstract class Constants {
-	public static final String REMOTE_OBJECT_NAME = "RemoteControlProvider";
-	public static final String REMOTE_OBJECT_REFERENCE = "/" + REMOTE_OBJECT_NAME;
+	public static final String REMOTE_OBJECT_NAME_PROVIDER = "RemoteControlProvider";
+	public static final String REMOTE_OBJECT_REFERENCE_PROVIDER = "/" + REMOTE_OBJECT_NAME_PROVIDER;
+	public static final String REMOTE_OBJECT_NAME_PERSON = "PersonInformationHandler";
+	public static final String REMOTE_OBJECT_REFERENCE_PERSON = "/" + REMOTE_OBJECT_NAME_PERSON;
 
 	public static final String createServerConnectionSuccessfulMessage(String hostname, int port) {
 		StringBuilder builder = new StringBuilder("Server connected successfully\n");
@@ -38,4 +40,6 @@ public abstract class Constants {
 	public static final String OPERATION_LESS_THAN = "lessThan";
 	public static final int ASK_OPERATION_1 = 1;
 	public static final int ASK_OPERATION_2 = 2;
+	public static final String NAME = "John Smith";
+	public static final int AGE = 40;
 }

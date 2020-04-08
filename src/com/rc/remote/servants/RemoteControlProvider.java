@@ -1,4 +1,4 @@
-package com.rc.remote.provider;
+package com.rc.remote.servants;
 
 import com.rc.remote.interfaces.IRemoteControl;
 

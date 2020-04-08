@@ -5,7 +5,10 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.rmi.registry.Registry;
 import java.rmi.Naming;
+
+import com.rc.remote.interfaces.IPersonInformationHandler;
 import com.rc.remote.interfaces.IRemoteControl;
+import com.rc.remote.servants.Person;
 import com.rc.remote.constants.Constants;
 
 public class RemoteControlClient {
@@ -19,10 +22,12 @@ public class RemoteControlClient {
 			ready();
 
 			IRemoteControl remoteProvider = getRemoteControlReference();
+			IPersonInformationHandler informationHandler = getPersonInformationHandlerReference();
 
-			if (remoteProvider != null) {
+			if (remoteProvider != null && informationHandler != null) {
 
-				askOperation(remoteProvider);
+//				askOperation(remoteProvider);
+				personTestCase(informationHandler);
 
 			} else {
 				throw new Exception("Unable to get remote reference.");
@@ -37,8 +42,7 @@ public class RemoteControlClient {
 	}
 
 	public static void listRemoteReferences() throws Exception {
-		String[] refs = Naming.list("//" + InetAddress.getLocalHost().getHostName() + ":" + Registry.REGISTRY_PORT
-				+ Constants.REMOTE_OBJECT_REFERENCE);
+		String[] refs = Naming.list("//" + InetAddress.getLocalHost().getHostName() + ":" + Registry.REGISTRY_PORT);
 
 		if (refs.length >= 1) {
 			for (int i = 0; i < refs.length; i++) {
@@ -56,7 +60,12 @@ public class RemoteControlClient {
 
 	public static IRemoteControl getRemoteControlReference() throws Exception {
 		return (IRemoteControl) Naming.lookup("//" + InetAddress.getLocalHost().getHostName() + ":"
-				+ Registry.REGISTRY_PORT + Constants.REMOTE_OBJECT_REFERENCE);
+				+ Registry.REGISTRY_PORT + Constants.REMOTE_OBJECT_REFERENCE_PROVIDER);
+	}
+
+	public static IPersonInformationHandler getPersonInformationHandlerReference() throws Exception {
+		return (IPersonInformationHandler) Naming.lookup("//" + InetAddress.getLocalHost().getHostName() + ":"
+				+ Registry.REGISTRY_PORT + Constants.REMOTE_OBJECT_REFERENCE_PERSON);
 	}
 
 	public static void askMessage(IRemoteControl provider) throws Exception {
@@ -95,5 +104,23 @@ public class RemoteControlClient {
 		} else {
 			throw new IllegalArgumentException("Invalid method");
 		}
+	}
+	
+	public static Person createPersonObject(IPersonInformationHandler handler) throws Exception {
+		return handler.createPersonRegistry(Constants.AGE, Constants.NAME);
+	}
+	
+	public static Person updatePersonObject(IPersonInformationHandler handler, Person person) throws Exception {
+		return handler.updatePersonRegistry(person, person.getAge() + 1);
+	}
+	
+	public static void personTestCase(IPersonInformationHandler handler) throws Exception {
+		Person person = createPersonObject(handler);
+		
+		System.out.println(person.toString());
+		
+		Person updated = updatePersonObject(handler, person);
+		
+		System.out.println(updated.toString());
 	}
 }

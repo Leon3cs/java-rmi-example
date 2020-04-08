@@ -4,8 +4,10 @@ import java.rmi.registry.Registry;
 import java.net.InetAddress;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.RMISocketFactory;
-import com.rc.remote.provider.RemoteControlProvider;
+
 import com.rc.remote.constants.Constants;
+import com.rc.remote.servants.RemoteControlProvider;
+import com.rc.remote.servants.PersonInformationHandler;
 
 public class RemoteControlServer {
 
@@ -36,11 +38,14 @@ public class RemoteControlServer {
 		RMISocketFactory.setSocketFactory(new CustomSocketFactory());
 
 		RemoteControlProvider provider = new RemoteControlProvider();
+		PersonInformationHandler informationHandler = new PersonInformationHandler();
+		
 
 		Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT,
 				RMISocketFactory.getDefaultSocketFactory(), RMISocketFactory.getDefaultSocketFactory());
 
-		registry.rebind(Constants.REMOTE_OBJECT_NAME, provider);
+		registry.rebind(Constants.REMOTE_OBJECT_NAME_PROVIDER, provider);
+		registry.rebind(Constants.REMOTE_OBJECT_NAME_PERSON, informationHandler);
 
 		return true;
 	}
